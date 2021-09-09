@@ -17,8 +17,8 @@ public class BookSaleService {
 	 * @return The amount to be charged to the client
 	 */
 	public BigDecimal calculateCost(final int bookCategory, final DiscountCategory discountCategory)throws DiscountException {
-		BigDecimal descuento , total, valor,descuentodos;
-		
+		BigDecimal   total, valor, descuentodos;
+
 		if (bookCategory < 1 ) {
 			throw new DiscountException(DiscountException.MENOR);	
 		}
@@ -27,21 +27,25 @@ public class BookSaleService {
 		}
 		
 		valor = precioCategoria(bookCategory);
-		
+		BigDecimal descuento = null;
 		switch(discountCategory) {
 			case EMPLOYEE:
 				descuento = new BigDecimal(0.10);
+				
+				
 				break;
 			case STUDENT:
-				descuento = new BigDecimal(0.20);
+				descuento = new BigDecimal(0.2);
+			
 				break;
 			case OTHER:
 				descuento = new BigDecimal(0);
+			
 				break;
 		}
-		
 		descuentodos = valor.multiply(descuento);
 		total = valor.subtract(descuentodos);
+		
 		return total;
 		
 		
@@ -52,21 +56,22 @@ public class BookSaleService {
 	
 	
 	public BigDecimal precioCategoria(int num) {
-		BigDecimal a;
+		BigDecimal a = null;
+		
 		if (1 <=num && num <= 10 ) {
 			a = new BigDecimal (25000);
-			return a;
 		}
 		
 		else if (11 <=num && num <= 20) {
 			a = new BigDecimal (50000);
-			return a;
+			
 		}
 		
 		else if (21 <=num && num <= 30 ) {
 			a = new BigDecimal (100000);
-			return a;
+			
 		}
+		return a;
 	}
 
 	
