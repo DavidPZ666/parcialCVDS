@@ -17,7 +17,7 @@ public class BookSaleService {
 	 * @return The amount to be charged to the client
 	 */
 	public BigDecimal calculateCost(final int bookCategory, final DiscountCategory discountCategory)throws DiscountException {
-		BigDecimal descuento , total, valor;
+		BigDecimal descuento , total, valor,descuentodos;
 		
 		if (bookCategory < 1 ) {
 			throw new DiscountException(DiscountException.MENOR);	
@@ -36,11 +36,12 @@ public class BookSaleService {
 				descuento = new BigDecimal(0.20);
 				break;
 			case OTHER:
-				descuento = new BigDecimal(1);
+				descuento = new BigDecimal(0);
 				break;
 		}
 		
-		total = valor.multiply(descuento);
+		descuentodos = valor.multiply(descuento);
+		total = valor.subtract(descuentodos);
 		return total;
 		
 		
